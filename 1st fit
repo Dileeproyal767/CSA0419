@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX PARTITIONS 6
+#define MAX PROCESSES 5
+
+int partitions[MAX PARTITIONS] = {300, 600, 350, 200, 750, 125};
+int processes[MAX PROCESSES] = {115, 500, 358, 200, 375};
+
+void first fit(int partitions[], int processes[], int npartitions, int nprocesses)
+{
+int allocation[MAX PROCESSES] = {-1};
+int i, j;
+for (i = 0; i < nprocesses; i++)
+{
+for (j = 0; j < npartitions; j++)
+{
+if (partitions[j] >= processes[i])
+{
+allocation[i] = j;
+partitions[j] -= processes[i];
+break;
+}
+}
+}
+printf("Process No.\tProcess Size\tPartition No.\n");
+for (i = 0; i < nprocesses; i++) {
+printf("%d\t\t%d\t\t", i+1, processes[i]);
+if (allocation[i] != -1)
+printf("%d\n", allocation[i]+1);
+else
+printf("Not Allocated\n");
+}
+}
+int main() {
+printf("Memory Partitions: ");
+for (int i = 0; i < MAX PARTITIONS; i++)
+{
+printf("%d KB ", partitions[i]);
+}
+printf("\nProcesses: ");
+for (int i = 0; i < MAX PROCESSES; i++)
+{
+printf("%d KB ", processes[i]);
+}
+printf("\n");
+first fit(partitions, processes, MAX PARTITIONS, MAX PROCESSES);
+return 0;
+}
