@@ -1,0 +1,42 @@
+#include <stdio.h>
+#define MAX PROCESSES 10
+struct process
+{
+    int burst time;
+    int waiting time;
+    int turnaround time;
+}
+int main()
+{
+    struct process processes[MAX PROCESSES];
+    int num_processes;
+    float total waiting time = 0;
+    float total turnaround time = 0;
+    printf("Enter the number of processes: ");
+    scanf("%d", &num processes);
+    for (int i = 0; i < num processes; i++)
+    {
+        printf("Enter burst time for process P%d: ", i + 1);
+        scanf("%d", &processes[i].burst time);
+    }
+    processes[0].waiting time = 0;
+    processes[0].turnaround time = processes[0].burst time;
+    for (int i = 1; i < num processes; i++)
+    {
+        processes[i].waiting time = processes[i - 1].turnaround time;
+        processes[i].turnaround time = processes[i].waiting time + processes[i].burst time;
+    }
+    for (int i = 0; i < num_processes; i++)
+    {
+        total waiting time += processes[i].waiting time;
+        total turnaround time += processes[i].turnaround time;
+    }
+    printf("\nProcess\tBurst Time\tWaiting Time\tTurnaround Time\n");
+    for (int i = 0; i < num processes; i++)
+    {
+        printf("P%d\t%d\t\t%d\t\t%d\n", i + 1, processes[i].burst time, processes[i].waiting time, processes[i].turnaround time);
+    }
+    printf("\nAverage waiting time: %.2f\n", total waiting time / num processes);
+    printf("Average turnaround time: %.2f\n", total turnaround time / num processes);
+return 0;
+}
