@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX FILES 100
+#define MAX FILENAME 20
+struct Directory
+{
+char name[MAX FILENAME];
+char files[MAX FILES][MAX FILENAME];
+int num files;
+}
+void create directory(struct Directory *dir, char *name) 
+{
+strcpy(dir->name, name);
+dir->num files = 0;
+}
+void add file(struct Directory *dir, char *filename)
+{
+if (dir->num files >= MAX FILES)
+{
+printf("Error: Directory is full\n");
+return;
+}
+strcpy(dir->files[dir->num files], filename);
+dir->num files++;
+}
+void print directory(struct Directory *dir)
+{
+printf("Directory: %s\n", dir->name);
+for (int i = 0; i < dir->num files; i++)
+{
+printf("- %s\n", dir->files[i]);
+}
+}
+int main()
+{
+struct Directory cse;
+create directory(&cse, "CSE");
+add file(&cse, "A");
+add file(&cse, "B");
+add file(&cse, "C");
+print directory(&cse);
+return 0;
+}
