@@ -1,0 +1,74 @@
+#include <stdio.h>
+#define MAX SIZE 10
+struct Process
+{
+    int burst time;
+    int priority;
+};
+void sort processes(struct Process p[], int n)
+{
+    for (int i = 0; i < n - 1; i++) 
+    {
+        for (int j = 0; j < n - i - 1; j++)
+        {
+            if (p[j].priority > p[j + 1].priority) 
+            {
+                struct Process temp = p[j];
+                p[j] = p[j + 1];
+                p[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void calculate_times(struct Process p[], int n, int waiting_time[], int turnaround time[]) 
+{
+    waiting_time[0] = 0;
+    for (int i = 1; i < n; i++) 
+    {
+        waiting time[i] = p[i - 1].burst time + waiting time[i - 1];
+    }
+    for (int i = 0; i < n; i++) 
+    {
+        turnaround time[i] = p[i].burst time + waiting time[i];
+    }
+}
+void display results(struct Process p[], int n, int waiting time[], int turnaround time[])
+{
+    int total waiting time = 0;
+    int total turnaround time = 0;
+    printf("Process\tBurst Time\tPriority\tWaiting Time\tTurnaround Time\n");
+    for (int i = 0; i < n; i++)
+    {
+        total waiting time += waiting time[i];
+        total turnaround time += turnaround time[i];
+        printf("P%d\t\t%d\t\t%d\t\t%d\t\t%d\n", i + 1, p[i].burst_time, p[i].priority,
+               waiting time[i], turnaround time[i]);
+    }
+    double avg waiting time = (double)total waiting time / n;
+    double avg turnaround time = (double)total turnaround time / n;
+    printf("\nAverage Waiting Time: %.2lf\n", avg waiting time);
+    printf("Average Turnaround Time: %.2lf\n", avg turnaround time);
+}
+int main()
+{
+    struct Process processes[MAX SIZE];
+    int n;
+    printf("Enter the number of processes: ");
+    scanf("%d", &n);
+    printf("Enter the burst time and priority for each process:\n");
+    for (int i = 0; i < n; i++) 
+    {
+        printf("Process P%d:\n", i + 1);
+        printf("Burst Time: ");
+        scanf("%d", &processes[i].burst_time);
+        printf("Priority: ");
+        scanf("%d", &processes[i].priority);
+    }
+    sort processes(processes, n);
+    int waiting time[MAX SIZE];
+    int turnaround time[MAX SIZE];
+    calculate times(processes, n, waiting time, turnaround time);
+    display results(processes, n, waiting time, turnaround time);
+    return 0;
+}
